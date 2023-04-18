@@ -60,21 +60,21 @@ public class PageTwo{
             ttype="questions";
         }
         else if(others.isSelected()){
-            System.out.println(others.getText());
-            System.out.println(oi.getText());
             ttype=oi.getText();
         }
+        System.out.println(ttype);
     }
     @FXML
     protected void upload(ActionEvent e){
         str=db.info();
         url=url.replace("\\","/");
+        System.out.println(url);
         db.upload(str,url,cname.getText(),ccid.getText(),ttype);
+        url=null;
+        ttype=null;
     }
     @FXML
     protected void back_home(ActionEvent event) throws IOException{
-
-        db.closeConnection();
         Parent root= FXMLLoader.load(getClass().getResource("hello-view.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root,600,500);

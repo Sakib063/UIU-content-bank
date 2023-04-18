@@ -48,6 +48,7 @@ public class HelloController{
     }
     @FXML
     protected void exit(){
+        db.closeConnection();
         Platform.exit();
     }
 }

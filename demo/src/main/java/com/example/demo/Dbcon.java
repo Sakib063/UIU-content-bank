@@ -68,7 +68,7 @@ public class Dbcon{
            dept=ttemp[2];
            System.out.println(Arrays.toString(str1));
            Statement statement=connection.createStatement();
-           statement.executeUpdate("INSERT INTO `content`(`course`,`course_code`,`content_type`,`file`,`dept`,`id`)VALUES('"+course+"','"+code+"','"+type+"',LOAD_FILE('"+url+"'),'"+dept+"','"+iid+"')");
+           statement.executeUpdate("INSERT INTO `content`(`course`,`course_code`,`content_type`,`file`,`dept`,`uid`)VALUES('"+course+"','"+code+"','"+type+"',LOAD_FILE('"+url+"'),'"+dept+"','"+iid+"')");
         }
         catch(Exception e){
             throw new RuntimeException(e);

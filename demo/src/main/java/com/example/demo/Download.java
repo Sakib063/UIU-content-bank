@@ -25,8 +25,7 @@ public class Download{
     protected void search(){
         search=name.getText().toLowerCase()+","+code.getText();
         System.out.println(search);
-//        db.read();
-        db.write(search);
+        db.read();
     }
     @FXML
     protected void back_home(ActionEvent event) throws IOException{
@@ -36,6 +35,5 @@ public class Download{
         stage.setTitle("UIU Content Bank");
         stage.setScene(scene);
         stage.show();
-        db.closeConnection();
     }
 }
