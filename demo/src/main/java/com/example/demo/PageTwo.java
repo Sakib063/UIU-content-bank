@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class PageTwo{
     Dbcon db=Dbcon.getInstance();
     @FXML
-    String url,temp,iid,dept,ttype;
+    String url,temp,iid,dept,ttype,file_name;
     String[] str,ttemp;
     @FXML
     private Button select;
@@ -38,16 +38,13 @@ public class PageTwo{
         FileChooser fileChooser=new FileChooser();
         File file=fileChooser.showOpenDialog(null);
         if(file!=null){
-            list.getItems().add(file.getName());
+            file_name=file.getName();
+            list.getItems().add(file_name);
             url=file.getAbsolutePath();
         }
         else{
             System.out.println("error file select");
         }
-    }
-    @FXML
-    protected void select_multi(ActionEvent e){
-
     }
     public void get_type(ActionEvent event){
         if(books.isSelected()){
@@ -69,7 +66,7 @@ public class PageTwo{
         str=db.info();
         url=url.replace("\\","/");
         System.out.println(url);
-        db.upload(str,url,cname.getText(),ccid.getText(),ttype);
+        db.upload(str,url,cname.getText().toLowerCase(),ccid.getText().toLowerCase(),ttype,file_name);
         url=null;
         ttype=null;
     }

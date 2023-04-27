@@ -1,4 +1,7 @@
 package com.example.demo;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.*;
 import java.util.Arrays;
 
@@ -36,31 +39,45 @@ public class Dbcon{
         }
         dbcon=null;
     }
-    public void read(){
+    public void read(String name,String code){
+      int BUFFER_SIZE=10000;
       try{
           Statement statement=connection.createStatement();
-          ResultSet resultSet=statement.executeQuery("SELECT * FROM `content`");
+          ResultSet resultSet=statement.executeQuery("SELECT filename,file FROM `content` WHERE course='"+name+"' AND course_code='"+code+"'");
           while(resultSet.next()){
-              System.out.println(resultSet.getString(1)+" "+resultSet.getString(2)+" "+resultSet.getString(3)+" "+resultSet.getString(4)+" "+resultSet.getString(5));
+              String file=resultSet.getString(1);
+              String path="C:/Users/Public/Downloads/"+file;
+              System.out.println(path);
+              Blob blob=resultSet.getBlob("file");
+              InputStream inputStream=blob.getBinaryStream();
+              OutputStream outputStream=new FileOutputStream(path);
+              int bytesRead=-1;
+              byte[] buffer=new byte[BUFFER_SIZE];
+              while((bytesRead=inputStream.read(buffer))!=-1){
+                  outputStream.write(buffer,0,bytesRead);
+              }
+              inputStream.close();
+              outputStream.close();
+              System.out.println("File saved");
           }
       }
       catch(Exception e){
           throw new RuntimeException(e);
       }
     }
-    public void write(String s){
-        try{
-            Statement statement=connection.createStatement();
-            ResultSet resultSet=statement.executeQuery("SELECT * FROM `content` WHERE name LIKE '"+s+"'");
-            while(resultSet.next()){
-                System.out.println(resultSet.getString(1)+" "+resultSet.getString(2)+" "+resultSet.getString(3)+" "+resultSet.getString(4)+" "+resultSet.getString(5));
-            }
-        }
-        catch(Exception e){
-            throw new RuntimeException(e);
-        }
-    }
-    public void upload(String[] str1,String url,String course,String code,String type){
+//    public void write(String s){
+//        try{
+//            Statement statement=connection.createStatement();
+//            ResultSet resultSet=statement.executeQuery("SELECT file FROM `content` WHERE uid LIKE '"+s+"'");
+//            while(resultSet.next()){
+//                System.out.println(resultSet.getString(1)+" "+resultSet.getString(2)+" "+resultSet.getString(3)+" "+resultSet.getString(4)+" "+resultSet.getString(5));
+//            }
+//        }
+//        catch(Exception e){
+//            throw new RuntimeException(e);
+//        }
+//    }
+    public void upload(String[] str1,String url,String course,String code,String type,String filename){
        try{
            temp = str1[0];
            ttemp=temp.split(" ");
@@ -68,7 +85,7 @@ public class Dbcon{
            dept=ttemp[2];
            System.out.println(Arrays.toString(str1));
            Statement statement=connection.createStatement();
-           statement.executeUpdate("INSERT INTO `content`(`course`,`course_code`,`content_type`,`file`,`dept`,`uid`)VALUES('"+course+"','"+code+"','"+type+"',LOAD_FILE('"+url+"'),'"+dept+"','"+iid+"')");
+           statement.executeUpdate("INSERT INTO `content`(`course`,`course_code`,`content_type`,`file`,`dept`,`uid`,`filename`)VALUES('"+course+"','"+code+"','"+type+"',LOAD_FILE('"+url+"'),'"+dept+"','"+iid+"','"+filename+"')");
         }
         catch(Exception e){
             throw new RuntimeException(e);
@@ -96,6 +113,7 @@ public class Dbcon{
       }
     }
     public String[] info(){
+      System.out.println(Arrays.toString(str));
       return str;
     }
 }

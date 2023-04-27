@@ -9,6 +9,7 @@
       <Button fx:id="upload_btn" layoutX="417.0" layoutY="145.0" mnemonicParsing="false" onAction="#search_course" text="Upload Content" textFill="#ff6600" />
       <Button fx:id="download_btn" layoutX="87.0" layoutY="145.0" mnemonicParsing="false" onAction="#download_course" text="Download Content" textFill="#ff6600" />
       <Button fx:id="exit" layoutX="541.0" layoutY="386.0" mnemonicParsing="false" onAction="#exit" text="Exit" textFill="#ff6600" />
-      <Label fx:id="namelabel" layoutX="242.0" layoutY="79.0" prefHeight="17.0" prefWidth="116.0" />
+      <Label fx:id="namelabel" layoutX="211.0" layoutY="39.0" prefHeight="40.0" prefWidth="178.0" />
+      <Label fx:id="idlabel" layoutX="211.0" layoutY="87.0" prefHeight="25.0" prefWidth="178.0" />
    </children>
 </AnchorPane>

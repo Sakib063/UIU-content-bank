@@ -22,11 +22,9 @@ public class HelloController{
     private Parent root;
     @FXML
     private Label namelabel;
-//    public HelloController(){
-//        str=db.info();
-//        System.out.println(str[1].toUpperCase());
-//        namelabel.setText("str[1]");
-//    }
+    @FXML
+    private Label idlabel;
+
 
     @FXML
     protected void search_course(ActionEvent event) throws IOException{
@@ -50,5 +48,11 @@ public class HelloController{
     protected void exit(){
         db.closeConnection();
         Platform.exit();
+    }
+    @FXML
+    protected void set_credentials(String name,String id){
+        System.out.println("Name label set: "+name+" ID label set: "+id);
+        namelabel.setText(name.toUpperCase());
+        idlabel.setText(id);
     }
 }

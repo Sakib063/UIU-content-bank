@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Download{
-    String search;
+    String search_name,search_id;
     Dbcon db=Dbcon.getInstance();
     @FXML
     private TextField name;
@@ -23,9 +23,10 @@ public class Download{
     private Button search_btn;
     @FXML
     protected void search(){
-        search=name.getText().toLowerCase()+","+code.getText();
-        System.out.println(search);
-        db.read();
+        search_name=name.getText().toLowerCase();
+        search_id=code.getText().toLowerCase();
+        System.out.println("searching for: "+search_name+","+search_id);
+        db.read(search_name,search_id);
     }
     @FXML
     protected void back_home(ActionEvent event) throws IOException{

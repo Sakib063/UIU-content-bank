@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.mysql.cj.util.TestUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,7 +41,10 @@ public class Login{
             designation=ttemp[1];
             dept=ttemp[2];
             name=str[1];
-            Parent root= FXMLLoader.load(getClass().getResource("hello-view.fxml"));
+            FXMLLoader loader=new FXMLLoader(getClass().getResource("hello-view.fxml"));
+            Parent root=loader.load();
+            HelloController controller=loader.getController();
+            controller.set_credentials(name,iid);
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root,600,500);
             stage.setTitle("Dashboard");
