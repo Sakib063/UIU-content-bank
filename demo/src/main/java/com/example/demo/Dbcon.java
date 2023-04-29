@@ -39,7 +39,7 @@ public class Dbcon{
         }
         dbcon=null;
     }
-    public void read(String name,String code){
+    public void download(String name,String code){
       int BUFFER_SIZE=10000;
       try{
           Statement statement=connection.createStatement();
@@ -65,18 +65,19 @@ public class Dbcon{
           throw new RuntimeException(e);
       }
     }
-//    public void write(String s){
-//        try{
-//            Statement statement=connection.createStatement();
-//            ResultSet resultSet=statement.executeQuery("SELECT file FROM `content` WHERE uid LIKE '"+s+"'");
+    public ResultSet fetch(String name,String code){
+        try{
+            Statement statement=connection.createStatement();
+            ResultSet resultSet=statement.executeQuery("SELECT content_type,filename FROM `content` WHERE course='"+name+"' AND course_code='"+code+"'");
 //            while(resultSet.next()){
-//                System.out.println(resultSet.getString(1)+" "+resultSet.getString(2)+" "+resultSet.getString(3)+" "+resultSet.getString(4)+" "+resultSet.getString(5));
+//                System.out.println(resultSet.getString(1)+" "+resultSet.getString(2));
 //            }
-//        }
-//        catch(Exception e){
-//            throw new RuntimeException(e);
-//        }
-//    }
+            return resultSet;
+        }
+        catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
     public void upload(String[] str1,String url,String course,String code,String type,String filename){
        try{
            temp = str1[0];
